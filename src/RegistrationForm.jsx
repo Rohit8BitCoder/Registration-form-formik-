@@ -3,7 +3,8 @@ import { useFormik } from 'formik';
 import LabelField from './micro/labelField';
 import InputFields from './micro/InputFields';
 import ButtonInputField from './micro/ButtonFields';
-import DropInputField from './micro/dropbox'
+import DropInputField from './micro/dropbox';
+import FormContext from './FormContext';
 
 export default function RegistrationForm() {
   const formik = useFormik({
@@ -63,7 +64,8 @@ export default function RegistrationForm() {
 
 
   return (
- <form onSubmit={formik.handleSubmit} className="max-w-md mx-auto p-6 bg-white rounded-xl shadow-md space-y-6">
+    <FormContext.Provider value={formik}>
+      <form onSubmit={formik.handleSubmit} className="max-w-md mx-auto p-6 bg-white rounded-xl shadow-md space-y-6">
 
   <header className="text-center">
     <h2 className="text-2xl font-semibold text-gray-800">User Registration</h2>
@@ -76,8 +78,6 @@ export default function RegistrationForm() {
       id="firstName"
       name="firstName"
       type="text"
-      onChange={formik.handleChange}
-      value={formik.values.firstName}
       className={getInputClass("firstName")}
     />
     {formik.errors.firstName && <div className="text-red-600 text-sm mt-1">{formik.errors.firstName}</div>}
@@ -90,8 +90,6 @@ export default function RegistrationForm() {
       id="lastName"
       name="lastName"
       type="text"
-      onChange={formik.handleChange}
-      value={formik.values.lastName}
       className={getInputClass("lastName")}
     />
     {formik.errors.lastName && <div className="text-red-600 text-sm mt-1">{formik.errors.lastName}</div>}
@@ -104,8 +102,6 @@ export default function RegistrationForm() {
       id="email"
       name="email"
       type="email"
-      onChange={formik.handleChange}
-      value={formik.values.email}
       className={getInputClass("email")}
     />
     {formik.errors.email && <div className="text-red-600 text-sm mt-1">{formik.errors.email}</div>}
@@ -162,8 +158,6 @@ export default function RegistrationForm() {
       id="password"
       name="password"
       type="password"
-      onChange={formik.handleChange}
-      value={formik.values.password}
       className={getInputClass("password")}
     />
     {formik.errors.password && <div className="text-red-600 text-sm mt-1">{formik.errors.password}</div>}
@@ -189,6 +183,6 @@ export default function RegistrationForm() {
   </div>
 
 </form>
-
+    </FormContext.Provider>
   );
 }
